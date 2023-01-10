@@ -1,1 +1,48 @@
-How many seconds left?
+<script src="jquery.js"></script>
+<script src="moment.js"></script>
+
+<style>
+    .center {
+        margin: auto;
+        left: 0;
+        right: 0;
+        width: fit-content;
+    }
+
+    .topPadding {
+        padding-top: 20px;
+    }
+
+    h1, h2 {
+        color: #eee;
+    }
+
+    body {
+        background-color: black;
+    }
+</style>
+<script data-ad-client="ca-pub-3406117978963387" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<div class="center">
+    <h1 id="hasTimeStopped" class="center topPadding">How many seconds left?</h1>
+    <h2 class="center topPadding">Until Christmas Holidays 2023 (Fri 22nd 5pm): <b id="time"></b></h2>
+</div>
+
+
+<script>
+$(document).ready(function() {
+    getTime();
+});
+
+function getTime()
+{
+    var endTime = moment('2023-12-22 17:00:00.000');
+    console.log(endTime);
+    var time = moment();
+    var secondsLeft = endTime.diff(time, 'seconds').toLocaleString('en-US');
+
+    $("#time").html(secondsLeft);
+
+    setTimeout(getTime, 1000);
+}
+</script>
