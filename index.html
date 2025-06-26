@@ -25,7 +25,7 @@
 
 <div class="center">
     <h1 id="hasTimeStopped" class="center topPadding">How many seconds left?</h1>
-    <h2 class="center topPadding">Until Christmas Holidays 2024 (Fri 20th 5pm): <b id="time"></b></h2>
+    <h2 class="center topPadding">Until Ant finishes his sentence (July 11th 5pm): <b id="time"></b></h2>
 </div>
 
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 function getTime()
 {
-    var endTime = moment('2024-12-20 17:00:00.000');
+    var endTime = moment('2025-07-11 17:00:00.000');
     console.log(endTime);
     var time = moment();
     var secondsLeft = endTime.diff(time, 'seconds').toLocaleString('en-US');
