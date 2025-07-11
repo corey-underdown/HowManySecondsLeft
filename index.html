@@ -20,12 +20,56 @@
     body {
         background-color: black;
     }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 140px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 150%;
+        left: 50%;
+        margin-left: -75px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
 </style>
 <script data-ad-client="ca-pub-3406117978963387" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <div class="center">
     <h1 id="hasTimeStopped" class="center topPadding">How many seconds left?</h1>
-    <h2 class="center topPadding">Until Ant finishes his sentence (July 11th 5pm): <b id="time"></b></h2>
+    <h2 class="center topPadding">
+        <div class="tooltip" id='copyTextId' onclick="copyTextToClipboard()" onmouseout="outTooltipHover()">
+            <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+            Until Ant finishes his sentence (July 11th 5pm): <b id="time"></b>
+        </div>
+    </h2>
 </div>
 
 
@@ -34,15 +78,35 @@ $(document).ready(function() {
     getTime();
 });
 
-function getTime()
+function calculateSecondsLeft()
 {
     var endTime = moment('2025-07-11 17:00:00.000');
     console.log(endTime);
     var time = moment();
     var secondsLeft = endTime.diff(time, 'seconds').toLocaleString('en-US');
 
+    return secondsLeft;
+}
+
+function getTime()
+{
+    var secondsLeft = calculateSecondsLeft();
+
     $("#time").html(secondsLeft);
 
     setTimeout(getTime, 1000);
+}
+
+function copyTextToClipboard() {
+  var copyText = "Until Ant finishes his sentence (July 11th 5pm): " + calculateSecondsLeft();
+  navigator.clipboard.writeText(copyText);
+  
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copied";
+}
+
+function outTooltipHover() {
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Copy to clipboard";
 }
 </script>
